@@ -1,1 +1,1 @@
-# major-Project
+# Major-Project: Learning Management System
