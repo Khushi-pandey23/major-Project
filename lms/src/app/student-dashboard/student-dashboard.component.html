@@ -1,0 +1,299 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-2 mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="#">Edu<span style="color: #333">Hub</span></a>
+    <div class="search-container mx-auto">
+      <input type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="d-flex align-items-center">
+      <div class="me-3 position-relative">
+        <i class="bi bi-bell"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          >2</span
+        >
+      </div>
+      <div class="me-3">
+        <i class="bi bi-chat"></i>
+      </div>
+      <img
+        src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
+        alt="Profile"
+        class="rounded-circle"
+        width="32"
+        height="32"
+      />
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <!-- Left Column - Profile Info -->
+    <div class="col-md-3">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-main">
+            <img
+              src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
+              alt="Profile Image"
+              class="profile-img"
+            />
+            <h4>{{ student.name }}</h4>
+            <p class="text-muted">Student at EduHub University</p>
+          </div>
+
+          <div class="stats-card">
+            <div class="stat-item">
+              <div class="stat-value">258</div>
+              <div class="stat-label">Connections</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">25</div>
+              <div class="stat-label">Views</div>
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="bi bi-envelope"></i>
+              <span>{{ student.email }}</span>
+            </div>
+            <div class="contact-item">
+              <i class="bi bi-mortarboard-fill"></i>
+              <span>ID: {{ student.id }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Similar Profiles Section -->
+      <div class="profile-section">
+        <div class="profile-header">
+          <h5>Similar Students</h5>
+        </div>
+        <div class="profile-content">
+          <div class="similar-profile">
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="Similar Profile"
+              class="similar-img"
+            />
+            <div class="similar-info">
+              <h6>Sarah Johnson</h6>
+              <p>Student at EduHub</p>
+            </div>
+          </div>
+          <div class="similar-profile">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="Similar Profile"
+              class="similar-img"
+            />
+            <div class="similar-info">
+              <h6>Mike Peterson</h6>
+              <p>Student at EduHub</p>
+            </div>
+          </div>
+          <div class="similar-profile">
+            <img
+              src="https://randomuser.me/api/portraits/women/68.jpg"
+              alt="Similar Profile"
+              class="similar-img"
+            />
+            <div class="similar-info">
+              <h6>Emma Rodriguez</h6>
+              <p>Student at EduHub</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Column - Main Content -->
+    <div class="col-md-6">
+      <!-- Tabs Navigation -->
+      <div class="profile-section mb-3">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Assignments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Forum</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Enrolled Courses -->
+      <div class="profile-section">
+        <div class="profile-header">
+          <h5>My Courses</h5>
+        </div>
+        <div class="profile-content">
+          <div class="row">
+            <div class="col-md-6 mb-3" *ngFor="let course of enrolledCourses">
+              <div class="card course-card h-100">
+                <img
+                  src="https://img.freepik.com/free-vector/laptop-with-program-code-isometric-icon-software-development-programming-applications-dark-neon_39422-971.jpg"
+                  alt=""
+                  class="card-img-top"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{ course.title }}</h5>
+                  <p class="card-text">Instructor: {{ course.instructor }}</p>
+
+                  <div class="progress mb-3">
+                    <div
+                      class="progress-bar bg-primary"
+                      [style.width]="course.progress + '%'"
+                      role="progressbar"
+                    >
+                      {{ course.progress }}%
+                    </div>
+                  </div>
+
+                  <button
+                    class="btn btn-outline-primary w-100"
+                    (click)="viewCourse(course.id)"
+                  >
+                    Continue Learning
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Quizzes & Assignments -->
+      <div class="profile-section mt-4">
+        <div class="profile-header">
+          <h5>Upcoming Assessments</h5>
+        </div>
+        <div class="profile-content p-0">
+          <ul class="list-group">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+              *ngFor="let quiz of upcomingQuizzes"
+            >
+              <div>
+                <h6 class="mb-0">{{ quiz.title }}</h6>
+                <small class="text-muted">Due: {{ quiz.dueDate }}</small>
+              </div>
+              <button
+                class="btn btn-sm btn-primary"
+                (click)="startQuiz(quiz.id)"
+              >
+                Start
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Discussion Forum -->
+      <div class="profile-section mt-4">
+        <div class="profile-header">
+          <h5>Discussion Forum</h5>
+        </div>
+        <div class="profile-content">
+          <textarea
+            class="form-control mb-3"
+            [(ngModel)]="newPost"
+            placeholder="Post a question or comment"
+          ></textarea>
+          <button class="btn btn-primary mb-3" (click)="postMessage()">
+            Post
+          </button>
+
+          <div class="card mb-3" *ngFor="let post of forumPosts">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-2">
+                <img
+                  src="https://randomuser.me/api/portraits/men/1.jpg"
+                  alt="User"
+                  class="rounded-circle me-2"
+                  width="40"
+                  height="40"
+                />
+                <div>
+                  <h6 class="mb-0">{{ post.user }}</h6>
+                  <small class="text-muted">2 hours ago</small>
+                </div>
+              </div>
+              <p class="card-text">{{ post.content }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Stats & Resources -->
+    <div class="col-md-3">
+      <!-- My Stats Section -->
+      <div class="profile-section">
+        <div class="profile-header">
+          <h5>My Stats</h5>
+        </div>
+        <div class="profile-content">
+          <div class="row">
+            <div class="col-6 text-center mb-3">
+              <div class="stat-value">25</div>
+              <div class="stat-label">Credits</div>
+            </div>
+            <div class="col-6 text-center mb-3">
+              <div class="stat-value">15</div>
+              <div class="stat-label">Quizzes</div>
+            </div>
+          </div>
+          <div class="stats-graph">
+            <div class="graph-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="profile-section mt-4">
+        <div class="profile-header">
+          <h5>Notifications</h5>
+        </div>
+        <div class="profile-content p-0">
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let notification of notifications"
+            >
+              <p class="mb-0">{{ notification.message }}</p>
+              <small class="text-muted">{{ notification.date }}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Resources & Materials -->
+      <div class="profile-section mt-4">
+        <div class="profile-header">
+          <h5>Resources</h5>
+        </div>
+        <div class="profile-content p-0">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let resource of studyMaterials">
+              <a
+                href="{{ resource.link }}"
+                target="_blank"
+                class="text-decoration-none"
+              >
+                <i class="bi bi-file-earmark-text me-2"></i>{{ resource.title }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

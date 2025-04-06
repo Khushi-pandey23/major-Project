@@ -1,0 +1,47 @@
+/* Custom Navbar Theme */
+.navbar {
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.navbar-brand {
+    color: #0a66c2;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.search-container {
+    width: 280px;
+}
+
+
+/* Hoverable Dropdown */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    border: 1px solid #0a66c2;
+}
+
+/* .dropdown-item {
+    color: #fff !important;
+} */
+
+.dropdown-item:hover {
+    background-color: #0a66c2 !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+/* Search Button */
+.btn-outline-success {
+    border-color: #0a66c2;
+    color: #0a66c2;
+}
+
+.btn-outline-success:hover {
+    background-color: #0a66c2;
+    color: #fff;
+}
