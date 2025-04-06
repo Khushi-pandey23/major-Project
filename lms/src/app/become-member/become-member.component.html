@@ -1,0 +1,286 @@
+<app-header></app-header>
+<div class="container">
+  <form
+    [formGroup]="membershipForm"
+    (ngSubmit)="onSubmit()"
+    class="membership-form"
+  >
+    <div class="form-intro">
+      <h4>Create Your Account</h4>
+      <p>Fill in your details to get started</p>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="firstName" class="form-label"
+          >First Name <span class="required text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Enter your first name"
+          [ngClass]="{ 'is-invalid': isInvalid('firstName') }"
+        />
+        <div class="invalid-feedback text-danger" *ngIf="isInvalid('firstName')">
+          Please enter your first name
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="lastName" class="form-label"
+          >Last Name <span class="required text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          formControlName="lastName"
+          placeholder="Enter your last name"
+          [ngClass]="{ 'is-invalid': isInvalid('lastName') }"
+        />
+        <div class="invalid-feedback text-danger" *ngIf="isInvalid('lastName')">
+          Please enter your last name
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="email" class="form-label"
+          >Email <span class="required text-danger">*</span></label
+        >
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="your@email.com"
+          [ngClass]="{ 'is-invalid': isInvalid('email') }"
+        />
+        <div class="invalid-feedback text-danger" *ngIf="isInvalid('email')">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="password" class="form-label"
+          >Password <span class="required text-danger">*</span></label
+        >
+        <div class="password-input">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            placeholder="Create a password"
+            [ngClass]="{ 'is-invalid': isInvalid('password') }"
+          />
+          <button type="button" class="password-toggle">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <div class="invalid-feedback text-danger" *ngIf="isInvalid('password')">
+          Password must be at least 8 characters
+        </div>
+        <div class="password-hint text-danger">
+          Use 8+ characters with a mix of letters, numbers & symbols
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="confirmPassword" class="form-label"
+          >Confirm Password <span class="required text-danger">*</span></label
+        >
+        <div class="password-input">
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+            [ngClass]="{
+              'is-invalid':
+                isInvalid('confirmPassword') ||
+                (formSubmitted && !passwordsMatch())
+            }"
+          />
+          <button type="button" class="password-toggle">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <div class="invalid-feedback text-danger" *ngIf="isInvalid('confirmPassword')">
+          Please confirm your password
+        </div>
+        <div
+          class="invalid-feedback text-danger"
+          *ngIf="formSubmitted && !passwordsMatch()"
+        >
+          Passwords do not match
+        </div>
+      </div>
+
+      <div class="col-12 membership-type-section">
+        <label class="form-label"
+          >Membership Type <span class="required text-danger">*</span></label
+        >
+        <p class="section-description">
+          Choose the plan that fits your learning goals
+        </p>
+        <div class="row g-3">
+          <div class="col-md-4" *ngFor="let type of membershipTypes">
+            <div
+              class="membership-card"
+              [class.active]="
+                membershipForm.get('membershipType')?.value === type.id
+              "
+            >
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  [id]="type.id"
+                  [value]="type.id"
+                  formControlName="membershipType"
+                />
+                <label class="form-check-label" [for]="type.id">
+                  <h5>{{ type.name }}</h5>
+                  <p class="price">{{ type.price }}</p>
+                  <span class="popular-badge" *ngIf="">Most Popular</span>
+                </label>
+              </div>
+              <ul class="features-list">
+                <li *ngFor="let feature of type.features">
+                  <i class="fas fa-check"></i> {{ feature }}
+                </li>
+              </ul>
+              <div class="card-footer">
+                <button
+                  type="button"
+                  class="btn-select"
+                  [class.selected]="
+                    membershipForm.get('membershipType')?.value === type.id
+                  "
+                >
+                  {{
+                    membershipForm.get("membershipType")?.value === type.id
+                      ? "Selected"
+                      : "Select Plan"
+                  }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 interests-section">
+        <label class="form-label">Areas of Interest</label>
+        <p class="section-description">
+          Select topics you're passionate about (optional)
+        </p>
+        <div class="interests-grid" formGroupName="interests">
+          <div class="interest-option">
+            <input
+              type="checkbox"
+              id="technology"
+              formControlName="technology"
+              class="interest-checkbox"
+            />
+            <label for="technology" class="interest-label">
+              <i class="fas fa-laptop-code"></i>
+              <span>Technology</span>
+            </label>
+          </div>
+          <div class="interest-option">
+            <input
+              type="checkbox"
+              id="business"
+              formControlName="business"
+              class="interest-checkbox"
+            />
+            <label for="business" class="interest-label">
+              <i class="fas fa-chart-line"></i>
+              <span>Business</span>
+            </label>
+          </div>
+          <div class="interest-option">
+            <input
+              type="checkbox"
+              id="arts"
+              formControlName="arts"
+              class="interest-checkbox"
+            />
+            <label for="arts" class="interest-label">
+              <i class="fas fa-paint-brush"></i>
+              <span>Creative Arts</span>
+            </label>
+          </div>
+          <div class="interest-option">
+            <input
+              type="checkbox"
+              id="science"
+              formControlName="science"
+              class="interest-checkbox"
+            />
+            <label for="science" class="interest-label">
+              <i class="fas fa-atom"></i>
+              <span>Science</span>
+            </label>
+          </div>
+          <div class="interest-option">
+            <input
+              type="checkbox"
+              id="languages"
+              formControlName="languages"
+              class="interest-checkbox"
+            />
+            <label for="languages" class="interest-label">
+              <i class="fas fa-language"></i>
+              <span>Languages</span>
+            </label>
+          </div>
+          <div class="interest-option">
+            <input
+              type="checkbox"
+              id="other"
+              formControlName="other"
+              class="interest-checkbox"
+            />
+            <label for="other" class="interest-label">
+              <i class="fas fa-ellipsis-h"></i>
+              <span>Other</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 terms-section">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="termsAccepted"
+            formControlName="termsAccepted"
+            [ngClass]="{ 'is-invalid': isInvalid('termsAccepted') }"
+          />
+          <label class="form-check-label" for="termsAccepted">
+            I agree to the <a href="#">Terms of Service</a>,
+            <a href="#">Privacy Policy</a>, and
+            <a href="#">Community Guidelines</a>
+            <span class="required">*</span>
+          </label>
+          <div class="invalid-feedback" *ngIf="isInvalid('termsAccepted')">
+            You must agree to the terms and conditions
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <span class="btn-text">Join Community</span>
+        <i class="fas fa-arrow-right btn-icon"></i>
+      </button>
+    </div>
+  </form>
+</div>
