@@ -6,15 +6,19 @@ import { Directive, HostListener, ElementRef, Renderer2 } from '@angular/core';
 export class HoverDropdownDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
-  @HostListener('mouseenter') onMouseEnter() {
-    this.renderer.addClass(this.el.nativeElement, 'show');
-    const dropdownMenu = this.el.nativeElement.querySelector('.dropdown-menu');
-    this.renderer.addClass(dropdownMenu, 'show');
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    const dropdown = this.el.nativeElement.querySelector('.dropdown-menu');
+    if (dropdown) {
+      this.renderer.addClass(dropdown, 'show');
+    }
   }
 
-  @HostListener('mouseleave') onMouseLeave() {
-    this.renderer.removeClass(this.el.nativeElement, 'show');
-    const dropdownMenu = this.el.nativeElement.querySelector('.dropdown-menu');
-    this.renderer.removeClass(dropdownMenu, 'show');
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    const dropdown = this.el.nativeElement.querySelector('.dropdown-menu');
+    if (dropdown) {
+      this.renderer.removeClass(dropdown, 'show');
+    }
   }
 }
