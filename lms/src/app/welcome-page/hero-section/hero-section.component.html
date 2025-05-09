@@ -5,6 +5,7 @@
     data-bs-ride="carousel"
     data-bs-interval="5000"
   >
+    <!-- Indicators -->
     <div class="carousel-indicators">
       <button
         type="button"
@@ -28,7 +29,9 @@
       ></button>
     </div>
 
+    <!-- Carousel slides -->
     <div class="carousel-inner">
+      <!-- Slide 1 -->
       <div class="carousel-item active">
         <div
           class="text-container"
@@ -41,13 +44,17 @@
               platform designed to transform education. Track progress, join
               discussions, and achieve your goals.
             </p>
-            <a class="btn btn-primary animate-text" href="/home#get-started-section"
-              >Get Started <i class="fas fa-arrow-right ms-2"></i
-            ></a>
+            <a
+              class="btn btn-primary animate-text"
+              href="/home#get-started-section"
+            >
+              Get Started <i class="fas fa-arrow-right ms-2"></i>
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- Slide 2 -->
       <div class="carousel-item">
         <div
           class="text-container"
@@ -60,13 +67,17 @@
               master new skills and advance your career. Learn anytime,
               anywhere.
             </p>
-            <a class="btn btn-primary animate-text" href="/home#courses-section"
-              >Explore Courses <i class="fas fa-book-open ms-2"></i
-            ></a>
+            <a
+              class="btn btn-primary animate-text"
+              href="/home#courses-section"
+            >
+              Explore Courses <i class="fas fa-book-open ms-2"></i>
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- Slide 3 -->
       <div class="carousel-item">
         <div
           class="text-container"
@@ -79,262 +90,36 @@
               insights, collaborate on projects, and grow together in our
               vibrant learning ecosystem.
             </p>
-            <a class="btn btn-primary animate-text" href="/home#community-section"
-              >Join Community <i class="fas fa-users ms-2"></i
-            ></a>
+            <a
+              class="btn btn-primary animate-text"
+              href="/home#community-section"
+            >
+              Join Community <i class="fas fa-users ms-2"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Carousel controls -->
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#heroCarousel"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#heroCarousel"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 </div>
-
-<div class="container">
-  <section id="get-started-section" class="py-5 bg-light">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <h2 class="display-4 mb-4">Begin Your Learning Adventure</h2>
-          <p class="lead mb-4">
-            Getting started is simple and takes just a few minutes. Create your
-            free account to unlock personalized learning paths tailored to your
-            goals.
-          </p>
-          <div class="steps mb-4">
-            <div class="step-item mb-3">
-              <h4>1. Create Your Account</h4>
-              <p>Sign up with your email or social account in seconds.</p>
-            </div>
-            <div class="step-item mb-3">
-              <h4 class="step-title">2. Take Our Assessment</h4>
-              <p>Help us understand your learning style and goals.</p>
-            </div>
-            <div class="step-item">
-              <h4 class="step-title">3. Get Personalized Recommendations</h4>
-              <p>
-                Receive course suggestions based on your interests and skill
-                level.
-              </p>
-            </div>
-          </div>
-          <a routerLink="../signup" class="btn btn-primary btn-lg"
-            >Sign Up Now</a
-          >
-        </div>
-        <div class="col-lg-6">
-          <img
-            src="istockphoto-1401105784-612x612.jpg"
-            alt="Getting started with learning"
-            class="img-fluid rounded shadow"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div class="features-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-graduation-cap"></i>
-          </div>
-          <h3 class="feature-title">Expert-Led Courses</h3>
-          <p class="feature-text">
-            Learn from industry professionals with real-world experience and
-            proven teaching methods.
-          </p>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3 class="feature-title">Track Your Progress</h3>
-          <p class="feature-text">
-            Monitor your learning journey with detailed analytics and
-            achievement badges.
-          </p>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-mobile-alt"></i>
-          </div>
-          <h3 class="feature-title">Learn Anywhere</h3>
-          <p class="feature-text">
-            Access your courses on any device with our mobile-friendly platform
-            and offline viewing.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<section id="courses-section" class="py-5">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="display-4">Explore Our Courses</h2>
-      <p class="lead">
-        Browse our catalog of high-quality courses across various disciplines
-      </p>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card course-card h-100">
-          <img
-            src="B-Tech-Courses.jpg"
-            class="card-img-top"
-            alt="Technology Courses"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Technology & Programming</h5>
-            <p class="card-text">
-              Master in-demand tech skills from web development to data science
-              and cybersecurity.
-            </p>
-            <div class="badges mb-3">
-              <span class="badge bg-primary me-2">Python</span>
-              <span class="badge bg-primary me-2">JavaScript</span>
-              <span class="badge bg-primary">AI/ML</span>
-            </div>
-            <a href="/courses/technology" class="btn btn-outline-primary"
-              >View Courses</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card course-card h-100">
-          <img
-            src="Business_management_e58bce4239.webp"
-            class="card-img-top"
-            alt="Business Courses"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Business & Management</h5>
-            <p class="card-text">
-              Develop leadership skills and business acumen to advance your
-              career.
-            </p>
-            <div class="badges mb-3">
-              <span class="badge bg-primary me-2">MBA Core</span>
-              <span class="badge bg-primary me-2">Marketing</span>
-              <span class="badge bg-primary">Finance</span>
-            </div>
-            <a href="/courses/business" class="btn btn-outline-primary"
-              >View Courses</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card course-card h-100">
-          <img
-            src="Fashion-design.jpg"
-            class="card-img-top"
-            alt="Creative Arts Courses"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Creative Arts</h5>
-            <p class="card-text">
-              Unleash your creativity with courses in design, photography,
-              writing and more.
-            </p>
-            <div class="badges mb-3">
-              <span class="badge bg-primary me-2">Graphic Design</span>
-              <span class="badge bg-primary me-2">Photography</span>
-              <span class="badge bg-primary">Creative Writing</span>
-            </div>
-            <a href="/courses/creative-arts" class="btn btn-outline-primary"
-              >View Courses</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center mt-4">
-      <a href="/courses" class="btn btn-primary btn-lg"
-        >View All Course Categories</a
-      >
-    </div>
-  </div>
-</section>
-
-<section id="community-section" class="py-5 bg-light">
-  <div class="container">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-5">
-          <img
-            src="Depositphotos_60069869_s-2019.jpg"
-            alt="Learning community interaction"
-            class="img-fluid rounded shadow"
-          />
-        </div>
-        <div class="col-1"></div>
-        <div class="col-lg-6">
-          <h2 class="display-4 mb-4">Join Our Learning Community</h2>
-          <p class="lead mb-4">
-            Connect with fellow learners, exchange ideas, and grow together in
-            our supportive environment.
-          </p>
-
-          <div class="community-features mb-4">
-            <div class="feature-item d-flex mb-3">
-              <div class="feature-icon me-3">
-                <i class="fas fa-comments fa-2x text-primary"></i>
-              </div>
-              <div>
-                <h4>Discussion Forums</h4>
-                <p>
-                  Ask questions and share knowledge with peers and instructors.
-                </p>
-              </div>
-            </div>
-
-            <div class="feature-item d-flex mb-3">
-              <div class="feature-icon me-3">
-                <i class="fas fa-users fa-2x text-primary"></i>
-              </div>
-              <div>
-                <h4>Study Groups</h4>
-                <p>
-                  Collaborate on projects and form study groups with like-minded
-                  learners.
-                </p>
-              </div>
-            </div>
-
-            <div class="feature-item d-flex">
-              <div class="feature-icon me-3">
-                <i class="fas fa-calendar-check fa-2x text-primary"></i>
-              </div>
-              <div>
-                <h4>Live Events</h4>
-                <p>
-                  Participate in webinars, Q&A sessions, and networking events.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <a routerLink="../pop-up" class="btn btn-primary btn-lg"
-            >Become a Member</a
-          >
-        </div>
-      </div>
-    </div>
-  </div>
-</section>

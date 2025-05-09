@@ -25,10 +25,6 @@
     border: 1px solid #0a66c2;
 }
 
-/* .dropdown-item {
-    color: #fff !important;
-} */
-
 .dropdown-item:hover {
     background-color: #0a66c2 !important;
     color: #fff !important;
