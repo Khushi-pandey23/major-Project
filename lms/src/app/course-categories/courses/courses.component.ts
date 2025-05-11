@@ -25,6 +25,7 @@ export class CoursesComponent {
     this.route.params.subscribe((params) => {
       this.category = params['category'];
       this.loadCourses();
+      this.categoryName = this.category.charAt(0).toUpperCase() + this.category.slice(1).replace('-', ' ');
     });
   }
 
@@ -36,11 +37,23 @@ export class CoursesComponent {
   filterCourses() {
     this.filteredCourses = this.courses.filter((course) => {
       const levelMatch = !this.selectedLevels.size || this.selectedLevels.has(course.level);
-      const durationMatch = !this.selectedDurations.size || this.selectedDurations.has(course.duration);
+      const durationMatch = !this.selectedDurations.size || this.checkDuration(course.duration);
       const ratingMatch = course.rating >= this.minRating;
 
       return levelMatch && durationMatch && ratingMatch;
     });
+  }
+
+  checkDuration(duration: string): boolean {
+    if (this.selectedDurations.has('Short') && this.parseDuration(duration) <= 4) return true;
+    if (this.selectedDurations.has('Medium') && this.parseDuration(duration) > 4 && this.parseDuration(duration) <= 12) return true;
+    if (this.selectedDurations.has('Long') && this.parseDuration(duration) > 12) return true;
+    return false;
+  }
+
+  parseDuration(duration: string): number {
+    const match = duration.match(/(\d+)/);
+    return match ? parseInt(match[0], 10) : 0;
   }
 
   toggleLevel(level: string) {

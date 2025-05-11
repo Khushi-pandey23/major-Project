@@ -10,8 +10,9 @@
           type="text"
           class="form-control form-control-lg"
           placeholder="Search for courses or categories..."
+          [(ngModel)]="searchQuery"
         />
-        <button class="btn btn-light" type="button">
+        <button class="btn btn-light" type="button" (click)="onSearch()">
           <i class="fas fa-search"></i>
         </button>
       </div>
@@ -21,146 +22,20 @@
 
 <div class="container py-5">
   <div class="row mb-5">
-    <div class="col-md-9">
-      <div class="category-section mb-5">
-        <h2>Technology & Programming</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
+    <div class="col-12">
+      <!-- Display filtered categories side by side -->
+      <div *ngFor="let category of filteredCategories" class="category-section mb-5">
+        <h2>{{ category.name }}</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <!-- Bootstrap grid for subcategory cards -->
+          <div *ngFor="let subcategory of category.subcategories" class="col">
             <div class="subcategory-card">
               <div class="icon-container">
-                <i class="fas fa-laptop-code"></i>
+                <i [class]="subcategory.icon"></i>
               </div>
-              <h4>Web Development</h4>
-              <p>124 courses</p>
-              <a href="/courses/web-development" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-mobile-alt"></i>
-              </div>
-              <h4>Mobile App Development</h4>
-              <p>96 courses</p>
-              <a href="/courses/mobile-development" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-brain"></i>
-              </div>
-              <h4>AI & Machine Learning</h4>
-              <p>78 courses</p>
-              <a href="/courses/ai-ml" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-section mb-5">
-        <h2>Business & Management</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-chart-line"></i>
-              </div>
-              <h4>Finance & Accounting</h4>
-              <p>89 courses</p>
-              <a href="/courses/finance" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-bullhorn"></i>
-              </div>
-              <h4>Marketing</h4>
-              <p>112 courses</p>
-              <a href="/courses/marketing" class="stretched-link"></a>
-            </div>
-          </div>
-          <!-- <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-user-tie"></i>
-              </div>
-              <h4>Leadership</h4>
-              <p>67 courses</p>
-              <a href="/courses/leadership" class="stretched-link"></a>
-            </div>
-          </div> -->
-        </div>
-      </div>
-
-      <div class="category-section mb-5">
-        <h2>Creative Arts</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-paint-brush"></i>
-              </div>
-              <h4>Graphic Design</h4>
-              <p>103 courses</p>
-              <a href="/courses/graphic-design" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-camera"></i>
-              </div>
-              <h4>Photography</h4>
-              <p>75 courses</p>
-              <a href="/courses/photography" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-pen-fancy"></i>
-              </div>
-              <h4>Creative Writing</h4>
-              <p>58 courses</p>
-              <a href="/courses/creative-writing" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-section mb-5">
-        <h2>Health & Wellness</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-heartbeat"></i>
-              </div>
-              <h4>Nutrition & Diet</h4>
-              <p>64 courses</p>
-              <a href="/courses/nutrition" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-spa"></i>
-              </div>
-              <h4>Yoga & Meditation</h4>
-              <p>51 courses</p>
-              <a href="/courses/yoga" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="subcategory-card">
-              <div class="icon-container">
-                <i class="fas fa-dumbbell"></i>
-              </div>
-              <h4>Fitness Training</h4>
-              <p>82 courses</p>
-              <a href="/courses/fitness" class="stretched-link"></a>
+              <h4>{{ subcategory.name }}</h4>
+              <p>{{ subcategory.coursesCount }} courses</p>
+              <a [routerLink]="subcategory.link" class="stretched-link"></a>
             </div>
           </div>
         </div>
