@@ -6,7 +6,7 @@ import { HeaderComponent } from "../welcome-page/header/header.component";
 
 @Component({
   selector: 'app-become-member',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, HeaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
   templateUrl: './become-member.component.html',
   styleUrl: './become-member.component.css'
 })

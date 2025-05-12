@@ -12,7 +12,7 @@
           placeholder="Search for courses or categories..."
           [(ngModel)]="searchQuery"
         />
-        <button class="btn btn-light" type="button" (click)="onSearch()">
+        <button class="btn btn-light" style="cursor:default;">
           <i class="fas fa-search"></i>
         </button>
       </div>
@@ -23,11 +23,9 @@
 <div class="container py-5">
   <div class="row mb-5">
     <div class="col-12">
-      <!-- Display filtered categories side by side -->
-      <div *ngFor="let category of filteredCategories" class="category-section mb-5">
+      <div *ngFor="let category of categories" class="category-section mb-5">
         <h2>{{ category.name }}</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <!-- Bootstrap grid for subcategory cards -->
           <div *ngFor="let subcategory of category.subcategories" class="col">
             <div class="subcategory-card">
               <div class="icon-container">
