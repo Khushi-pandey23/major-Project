@@ -1,21 +1,27 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showPassword = false;
+  loginError: string = '';
+  apiUrl = 'http://localhost:3000/users'; // JSON Server users endpoint
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -24,23 +30,40 @@ export class LoginComponent {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      console.log('Form submitted:', this.loginForm.value);
-      // Call authentication service
-      this.router.navigate(['/dashboard']);
-    } else {
-      // Mark all fields as touched to trigger validation messages
-      Object.keys(this.loginForm.controls).forEach(key => {
-        this.loginForm.get(key)?.markAsTouched();
-      });
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
     }
+
+    const { email, password } = this.loginForm.value;
+
+    this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`)
+      .pipe(
+        catchError(error => {
+          this.loginError = 'An error occurred during login.';
+          return of([]);
+        })
+      )
+      .subscribe(users => {
+        if (users.length > 0) {
+          const user = users[0];
+
+          // ✅ Store token and username properly
+          sessionStorage.setItem('token', 'fake-token'); // replace with real token if available
+          sessionStorage.setItem('username', user.email.split('@')[0]);
+
+          // ✅ Redirect to dashboard
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.loginError = 'Invalid email or password';
+        }
+      });
   }
 }
