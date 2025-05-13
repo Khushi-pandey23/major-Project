@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseDetails } from '../interfaces/course-interfaces';
 import { CourseService } from '../services/courses-service';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-course-page',
@@ -65,6 +66,27 @@ export class CoursePageComponent {
       url
     );
   }
+  focusMode: boolean = false;
 
+  toggleFocusMode() {
+    this.focusMode = !this.focusMode;
+    this.updateBodyOverflow();
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  handleEscapeKey(event: KeyboardEvent) {
+    if (this.focusMode) {
+      this.focusMode = false;
+      this.updateBodyOverflow();
+    }
+  }
+
+  updateBodyOverflow() {
+    document.body.style.overflow = this.focusMode ? 'hidden' : 'auto';
+  }
+
+  ngOnDestroy() {
+    document.body.style.overflow = 'auto';
+  }
 
 }

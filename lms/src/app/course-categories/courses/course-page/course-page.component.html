@@ -1,15 +1,15 @@
-<!-- {{course | json }} -->
-
 <div class="container-fluid py-4">
   <div class="row">
     <div class="col-md-3">
       <div class="card">
         <div class="list-group">
-            <a class="list-group-item">Module</a>
-            <a *ngFor="let module of course.ModulesTitle; let i = index" 
+          <a class="list-group-item">Module</a>
+          <a
+            *ngFor="let module of course.ModulesTitle; let i = index"
             [class.active]="selectedModule === i"
             (click)="selectModule(i)"
-            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+          >
             {{ module }}
           </a>
         </div>
@@ -24,64 +24,127 @@
             <h2 class="mb-0">{{ course.Title }}</h2>
             <span class="badge bg-info">{{ course.NumOfModules }} Modules</span>
           </div>
-          <p class="text-muted mb-0">Module: {{ course.ModulesTitle[selectedModule] }}</p>
+          <p class="text-muted mb-0">
+            Module: {{ course.ModulesTitle[selectedModule] }}
+          </p>
         </div>
 
         <div class="card-body">
           <!-- Tab Navigation -->
           <ul class="nav nav-underline mb-4">
             <li class="nav-item">
-                <a class="nav-link" 
+              <a
+                class="nav-link"
                 [class.active]="activeTab === 'videos'"
                 (click)="setActiveTab('videos')"
-                 href="javascript:void(0)">Video Tutorials</a>
+                href="javascript:void(0)"
+                >Video Tutorials</a
+              >
             </li>
             <li class="nav-item">
-                <a class="nav-link" 
+              <a
+                class="nav-link"
                 [class.active]="activeTab === 'assignments'"
                 (click)="setActiveTab('assignments')"
-                 href="javascript:void(0)">Assignments</a>
+                href="javascript:void(0)"
+                >Assignments</a
+              >
             </li>
             <li class="nav-item">
-                <a class="nav-link" 
+              <a
+                class="nav-link"
                 [class.active]="activeTab === 'quiz'"
                 (click)="setActiveTab('quiz')"
-                 href="javascript:void(0)">Quiz</a>
+                href="javascript:void(0)"
+                >Quiz</a
+              >
             </li>
           </ul>
 
-          <div *ngIf="activeTab === 'videos'" class="tab-content">
-            <div class="ratio ratio-16x9 mb-4" *ngIf="course.VideoTutorials">
-                <iframe 
-                title="Video Tutorial" 
-                [src]="updateSafeVideoUrl(course.VideoTutorials[selectedModule])" 
-                allowfullscreen></iframe>
+          <!-- Videos -->
+          <div
+            *ngIf="activeTab === 'videos'"
+            class="tab-content"
+            [ngClass]="{ 'focus-mode': focusMode, 'standard-mode': !focusMode }"
+          >
+            <div class="header-container mb-3">
+              <h4 class="module-title">
+                {{ course.ModulesTitle[selectedModule] }}
+              </h4>
+              <button
+                class="btn focus-toggle-btn"
+                (click)="toggleFocusMode()"
+                [ngClass]="{
+                  'btn-light': focusMode,
+                  'btn-primary': !focusMode
+                }"
+              >
+                <i
+                  class="fas"
+                  [ngClass]="{
+                    'fa-compress-alt': focusMode,
+                    'fa-expand-alt': !focusMode
+                  }"
+                ></i>
+                {{ focusMode ? "Exit Focus Mode" : "Enter Focus Mode" }}
+              </button>
             </div>
-            <h4>{{ course.ModulesTitle[selectedModule] }}</h4>
-            <p class="text-muted">Video tutorial for this module</p>
+
+            <div class="video-container">
+              <div class="video-wrapper">
+                <iframe
+                  title="Video Tutorial"
+                  [src]="
+                    updateSafeVideoUrl(course.VideoTutorials[selectedModule])
+                  "
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
           </div>
 
           <!-- Assignments -->
           <div *ngIf="activeTab === 'assignments'" class="tab-content">
             <h4>Assignments for {{ course.ModulesTitle[selectedModule] }}</h4>
             <div class="list-group">
-              <div *ngFor="let assignment of getModuleAssignments(course.ModulesTitle[selectedModule])" 
-                   class="list-group-item">
+              <div
+                *ngFor="
+                  let assignment of getModuleAssignments(
+                    course.ModulesTitle[selectedModule]
+                  )
+                "
+                class="list-group-item"
+              >
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1">{{ assignment.Question }}</h5>
-                  <small class="text-muted">ID: {{ assignment.AssignmentId }}</small>
+                  <small class="text-muted"
+                    >ID: {{ assignment.AssignmentId }}</small
+                  >
                 </div>
-                <p class="mb-1">Submit your assignment through the upload form below.</p>
+                <p class="mb-1">
+                  Submit your assignment through the upload form below.
+                </p>
                 <div class="mt-3">
                   <div class="input-group">
-                    <input type="file" class="form-control" id="assignmentFile">
-                    <button class="btn btn-primary" type="button">Upload</button>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="assignmentFile"
+                    />
+                    <button class="btn btn-primary" type="button">
+                      Upload
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="getModuleAssignments(course.ModulesTitle[selectedModule]).length === 0" 
-                 class="alert alert-info mt-3">
+            <div
+              *ngIf="
+                getModuleAssignments(course.ModulesTitle[selectedModule])
+                  .length === 0
+              "
+              class="alert alert-info mt-3"
+            >
               No assignments available for this module.
             </div>
           </div>
@@ -90,17 +153,22 @@
           <div *ngIf="activeTab === 'quiz'" class="tab-content">
             <h4>Quiz Questions</h4>
             <div class="alert alert-info mb-4">
-              Complete the quiz to test your understanding of the course material.
+              Complete the quiz to test your understanding of the course
+              material.
             </div>
             <div class="card mb-3" *ngFor="let quiz of course.Quiz">
-              <div class="card-header d-flex justify-content-between align-items-center">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
                 <span>Question {{ quiz.id }}</span>
-                <span class="badge" 
-                      [ngClass]="{
-                        'bg-success': quiz.level <= 2,
-                        'bg-warning': quiz.level === 3,
-                        'bg-danger': quiz.level > 3
-                      }">
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'bg-success': quiz.level <= 2,
+                    'bg-warning': quiz.level === 3,
+                    'bg-danger': quiz.level > 3
+                  }"
+                >
                   Difficulty: {{ quiz.level }}/5
                 </span>
               </div>
@@ -108,26 +176,58 @@
                 <h5 class="card-title">{{ quiz.question }}</h5>
                 <div class="mt-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="quiz{{quiz.id}}Option" id="quiz{{quiz.id}}Option1">
-                    <label class="form-check-label" for="quiz{{quiz.id}}Option1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="quiz{{ quiz.id }}Option"
+                      id="quiz{{ quiz.id }}Option1"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="quiz{{ quiz.id }}Option1"
+                    >
                       Option 1
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="quiz{{quiz.id}}Option" id="quiz{{quiz.id}}Option2">
-                    <label class="form-check-label" for="quiz{{quiz.id}}Option2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="quiz{{ quiz.id }}Option"
+                      id="quiz{{ quiz.id }}Option2"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="quiz{{ quiz.id }}Option2"
+                    >
                       Option 2
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="quiz{{quiz.id}}Option" id="quiz{{quiz.id}}Option3">
-                    <label class="form-check-label" for="quiz{{quiz.id}}Option3">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="quiz{{ quiz.id }}Option"
+                      id="quiz{{ quiz.id }}Option3"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="quiz{{ quiz.id }}Option3"
+                    >
                       Option 3
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="quiz{{quiz.id}}Option" id="quiz{{quiz.id}}Option4">
-                    <label class="form-check-label" for="quiz{{quiz.id}}Option4">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="quiz{{ quiz.id }}Option"
+                      id="quiz{{ quiz.id }}Option4"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="quiz{{ quiz.id }}Option4"
+                    >
                       Option 4
                     </label>
                   </div>
