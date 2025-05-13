@@ -12,7 +12,7 @@ import { AuthLoginGuard } from './authlogin.guard';
 export const routes: Routes = [
   { path: 'home', component: WelcomePageComponent },
   { path: 'dashboard', component: StudentDashboardComponent },
-  { path: 'login', component: LoginComponent, canActivate: [] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthLoginGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [AuthLoginGuard] },
   { path: 'courses', component: CourseCategoriesComponent },
   { path: 'courses/:category', component: CoursesComponent },
