@@ -1,0 +1,5 @@
+{
+  "watch": "public/db.json",
+  "routes": "public/routes.json",
+  "port": 3000
+}

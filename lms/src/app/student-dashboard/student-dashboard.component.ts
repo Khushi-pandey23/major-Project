@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -12,9 +13,9 @@ import { FormsModule } from '@angular/forms';
 export class StudentDashboardComponent implements OnInit {
 
   student = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    id: 'STU123456'
+    name: '', // Initialize as empty
+    email: '', // You might not need this hardcoded anymore
+    id: '' // You might not need this hardcoded anymore
   };
 
   enrolledCourses = [
@@ -41,12 +42,35 @@ export class StudentDashboardComponent implements OnInit {
     { title: 'Angular Docs', link: 'https://angular.io/docs' },
     { title: 'TypeScript Guide', link: 'https://www.typescriptlang.org/docs/' }
   ];
-
+  id: string = '';
   newPost: string = '';
+  username: string | null = null; // Variable to store the username
+  email: string | null = null;
+  firstName: string = '';
+  lastName: string = '';
 
-  constructor() {}
+  constructor(private router: Router) {} // Inject the Router
 
-  ngOnInit(): void {}
+  
+
+  ngOnInit(): void {
+    this.id = sessionStorage.getItem('id') || '';
+    this.username = sessionStorage.getItem('username'); // Retrieve username from session storage
+    this.email = sessionStorage.getItem('email');
+    this.firstName = sessionStorage.getItem('firstName') || '';
+    this.lastName = sessionStorage.getItem('lastName') || '';
+    if (this.username) {
+      this.student.name = this.username; 
+      // Update the student's name
+    }
+    if(this.email){
+      this.student.email = this.email;
+    }
+    if(this.id){
+      this.student.id = this.id;
+    }
+    // In a real application, you might fetch the complete student profile here
+  }
 
   viewCourse(courseId: number) {
     alert(`Navigating to course ${courseId}`);
@@ -62,4 +86,10 @@ export class StudentDashboardComponent implements OnInit {
       this.newPost = ''; // Clear input after posting
     }
   }
+
+  logout() {
+  sessionStorage.removeItem('username');
+  sessionStorage.removeItem('token'); 
+  this.router.navigate(['/home']);
+}
 }
