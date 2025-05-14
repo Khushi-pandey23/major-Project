@@ -37,33 +37,38 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
-
-    const { email, password } = this.loginForm.value;
-
-    this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`)
-      .pipe(
-        catchError(error => {
-          this.loginError = 'An error occurred during login.';
-          return of([]);
-        })
-      )
-      .subscribe(users => {
-        if (users.length > 0) {
-          const user = users[0];
-
-          // ✅ Store token and username properly
-          sessionStorage.setItem('token', 'fake-token'); // replace with real token if available
-          sessionStorage.setItem('username', user.email.split('@')[0]);
-
-          // ✅ Redirect to dashboard
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.loginError = 'Invalid email or password';
-        }
-      });
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  const { email, password } = this.loginForm.value;
+
+  this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`)
+    .pipe(
+      catchError(error => {
+        this.loginError = 'An error occurred during login.';
+        return of([]);
+      })
+    )
+    .subscribe(users => {
+      if (users.length > 0) {
+        const user = users[0];
+
+        // ✅ Store everything you need
+        sessionStorage.setItem('token', 'fake-token'); // For authentication simulation
+        sessionStorage.setItem('username', user.email.split('@')[0]);
+        sessionStorage.setItem('email', user.email);
+        sessionStorage.setItem('id', user.id); // <-- Store ID
+        sessionStorage.setItem('firstName', user.firstName || '');
+        sessionStorage.setItem('lastName', user.lastName || '');
+
+        // ✅ Redirect to dashboard
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.loginError = 'Invalid email or password';
+      }
+    });
+}
+
 }

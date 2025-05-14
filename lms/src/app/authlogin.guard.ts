@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +8,20 @@ export class AuthLoginGuard implements CanActivate {
 
   constructor(private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = sessionStorage.getItem('token');
+    const isLoginPage = route.data?.['isLoginPage'];
 
-    if (token) {
-      // User is already logged in, redirect to dashboard
-      this.router.navigate(['/dashboard']);
+    if (isLoginPage && token) {
+      this.router.navigate(['/page-not-found']);
       return false;
     }
 
-    // Allow access to login page
+    if (!isLoginPage && !token) {
+      this.router.navigate(['/page-not-found']);
+      return false;
+    }
+
     return true;
   }
 }
