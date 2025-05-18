@@ -41,5 +41,11 @@ export interface AssignmentQuestion {
 export interface QuizQuestion {
   id: number;
   question: string;
-  level: number //1-5
+  level: number; //1-5
+  option1: string;
+  option2: string;
+  option3: string;
+  option4: string;
+  correctAnswer: number;
+  explanation?: string;
 }

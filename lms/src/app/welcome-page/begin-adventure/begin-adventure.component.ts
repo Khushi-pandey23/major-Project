@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-begin-adventure',
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class BeginAdventureComponent {
 
+  constructor(private route: ActivatedRoute, private router: Router){ }
+
+  register(){
+    this.router.navigate(["/signup"]);
+  }
 }

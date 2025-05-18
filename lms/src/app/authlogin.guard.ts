@@ -10,15 +10,9 @@ export class AuthLoginGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = sessionStorage.getItem('token');
-    const isLoginPage = route.data?.['isLoginPage'];
+    //const isLoginPage = route.data?.['isLoginPage'];
 
-    if (isLoginPage && token) {
-      this.router.navigate(['/page-not-found']);
-      return false;
-    }
-
-    if (!isLoginPage && !token) {
-      this.router.navigate(['/page-not-found']);
+    if (!token) {
       return false;
     }
 

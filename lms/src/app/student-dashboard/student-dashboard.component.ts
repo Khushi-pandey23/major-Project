@@ -44,32 +44,28 @@ export class StudentDashboardComponent implements OnInit {
   ];
   id: string = '';
   newPost: string = '';
-  username: string | null = null; // Variable to store the username
+  username: string | null = null;
   email: string | null = null;
   firstName: string = '';
   lastName: string = '';
 
-  constructor(private router: Router) {} // Inject the Router
-
-  
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.id = sessionStorage.getItem('id') || '';
-    this.username = sessionStorage.getItem('username'); // Retrieve username from session storage
+    this.username = sessionStorage.getItem('username');
     this.email = sessionStorage.getItem('email');
     this.firstName = sessionStorage.getItem('firstName') || '';
     this.lastName = sessionStorage.getItem('lastName') || '';
     if (this.username) {
-      this.student.name = this.username; 
-      // Update the student's name
+      this.student.name = this.firstName;
     }
-    if(this.email){
+    if (this.email) {
       this.student.email = this.email;
     }
-    if(this.id){
+    if (this.id) {
       this.student.id = this.id;
     }
-    // In a real application, you might fetch the complete student profile here
   }
 
   viewCourse(courseId: number) {
@@ -83,13 +79,13 @@ export class StudentDashboardComponent implements OnInit {
   postMessage() {
     if (this.newPost.trim() !== '') {
       this.forumPosts.unshift({ user: 'You', content: this.newPost });
-      this.newPost = ''; // Clear input after posting
+      this.newPost = '';
     }
   }
 
   logout() {
-  sessionStorage.removeItem('username');
-  sessionStorage.removeItem('token'); 
-  this.router.navigate(['/home']);
-}
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('token');
+    this.router.navigate(['/home']);
+  }
 }

@@ -24,7 +24,7 @@
   <div class="row mb-5">
     <div class="col-12">
       <div *ngFor="let category of categories" class="category-section mb-5">
-        <h2>{{ category.name }}</h2>
+        <h2 id="{{category.name}}">{{ category.name }}</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <div *ngFor="let subcategory of category.subcategories" class="col">
             <div class="subcategory-card">

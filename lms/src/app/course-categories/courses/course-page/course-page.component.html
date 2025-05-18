@@ -105,7 +105,12 @@
 
           <!-- Assignments -->
           <div *ngIf="activeTab === 'assignments'" class="tab-content">
-            <h4>Assignments for {{ course.ModulesTitle[selectedModule] }}</h4>
+            <div class="mt-2 mb-4">
+              <h4>Assignments for {{ course.ModulesTitle[selectedModule] }}</h4>
+              <p class="mb-1">
+                Submit your assignment through the upload form below.
+              </p>
+            </div>
             <div class="list-group">
               <div
                 *ngFor="
@@ -121,9 +126,7 @@
                     >ID: {{ assignment.AssignmentId }}</small
                   >
                 </div>
-                <p class="mb-1">
-                  Submit your assignment through the upload form below.
-                </p>
+
                 <div class="mt-3">
                   <div class="input-group">
                     <input
@@ -151,91 +154,51 @@
 
           <!-- Quiz Tab -->
           <div *ngIf="activeTab === 'quiz'" class="tab-content">
-            <h4>Quiz Questions</h4>
-            <div class="alert alert-info mb-4">
-              Complete the quiz to test your understanding of the course
-              material.
-            </div>
-            <div class="card mb-3" *ngFor="let quiz of course.Quiz">
-              <div
-                class="card-header d-flex justify-content-between align-items-center"
-              >
-                <span>Question {{ quiz.id }}</span>
-                <span
-                  class="badge"
-                  [ngClass]="{
-                    'bg-success': quiz.level <= 2,
-                    'bg-warning': quiz.level === 3,
-                    'bg-danger': quiz.level > 3
-                  }"
-                >
-                  Difficulty: {{ quiz.level }}/5
-                </span>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">{{ quiz.question }}</h5>
-                <div class="mt-3">
-                  <div class="form-check">
+            <button
+              *ngIf="!quizStarted"
+              class="btn btn-primary"
+              (click)="startQuiz()"
+            >
+              Start Quiz
+            </button>
+            <div *ngIf="quizStarted">
+              <h4>
+                Quiz Questions (Time Remaining: {{ minutes }}:{{
+                  seconds | number : "2.0"
+                }})
+              </h4>
+              <div class="card mb-3" *ngFor="let quiz of course.Quiz">
+                <div class="card-header">Question {{ quiz.id }}</div>
+                <div class="card-body">
+                  <h5>{{ quiz.question }}</h5>
+                  <div
+                    class="form-check"
+                    *ngFor="
+                      let option of [
+                        quiz.option1,
+                        quiz.option2,
+                        quiz.option3,
+                        quiz.option4
+                      ];
+                      let i = index
+                    "
+                  >
                     <input
                       class="form-check-input"
                       type="radio"
                       name="quiz{{ quiz.id }}Option"
-                      id="quiz{{ quiz.id }}Option1"
                     />
-                    <label
-                      class="form-check-label"
-                      for="quiz{{ quiz.id }}Option1"
-                    >
-                      Option 1
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="quiz{{ quiz.id }}Option"
-                      id="quiz{{ quiz.id }}Option2"
-                    />
-                    <label
-                      class="form-check-label"
-                      for="quiz{{ quiz.id }}Option2"
-                    >
-                      Option 2
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="quiz{{ quiz.id }}Option"
-                      id="quiz{{ quiz.id }}Option3"
-                    />
-                    <label
-                      class="form-check-label"
-                      for="quiz{{ quiz.id }}Option3"
-                    >
-                      Option 3
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="quiz{{ quiz.id }}Option"
-                      id="quiz{{ quiz.id }}Option4"
-                    />
-                    <label
-                      class="form-check-label"
-                      for="quiz{{ quiz.id }}Option4"
-                    >
-                      Option 4
-                    </label>
+                    <label class="form-check-label">{{ option }}</label>
                   </div>
                 </div>
               </div>
+              <button class="btn btn-primary" (click)="submitQuiz()">
+                Submit Quiz
+              </button>
             </div>
-            <button class="btn btn-primary">Submit Quiz</button>
           </div>
+
+          
         </div>
       </div>
     </div>

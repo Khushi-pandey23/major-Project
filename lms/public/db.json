@@ -1,12 +1,12 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "email": "admin@example.com",
       "password": "admin123"
     },
     {
-      "id": 2,
+      "id": "2",
       "email": "user@example.com",
       "password": "user123"
     },
@@ -27,6 +27,27 @@
       "password": "1234567890",
       "confirmPassword": "1234567890",
       "agreeTerms": true
+    },
+    {
+      "id": "d26f",
+      "firstName": "Khushi",
+      "lastName": "Pandey",
+      "email": "newEmail@gmail.com",
+      "password": "123Khushi",
+      "confirmPassword": "123Khushi",
+      "agreeTerms": true
+    }
+  ],
+  "quiz_results": [
+    {
+      "id": "373e",
+      "userId": null,
+      "answers": {}
+    },
+    {
+      "id": "7a26",
+      "userId": "d26f",
+      "answers": {}
     }
   ]
 }
